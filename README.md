@@ -1,5 +1,7 @@
 # F-WIN-ALT-TAB
 
+Automatically converts ALT+TAB to WIN+TAB, providing a more efficient window switching experience on multi-monitor setups.
+
 A lightweight utility that enhances the ALT+TAB experience for multi-monitor setups by showing only the windows on your active monitor.
 
 ## Features
@@ -15,21 +17,31 @@ TODO: Create a software with a tray icon
 ## Prerequisites
 
 - Python 3.6 or higher
-- Required packages: `keyboard`, `pywin32`
+- Required packages: `keyboard`, `pywin32`, `pystray`
 
 ## Installation
 
 1. Clone this repository or download the files
-2. Install the required packages:
+2. Install the required packages if the automatic installer didn't work:
 
 ```bash
-pip install keyboard pywin32
+pip install keyboard pywin32 pystray
 ```
 
-3. Run the script and keep it active
+3. Double click the `run.cmd` script and keep it active
+
+---
+
+To run in development mode use:
 
 ```bash
 python f-win-alt-tab.py
+```
+
+To uninstall the packages use:
+
+```bash
+pip uninstall keyboard pywin32 pystray
 ```
 
 ## Making it faster
@@ -91,3 +103,11 @@ Stackoverflow:
 [activate task view programmatically windows 10](https://stackoverflow.com/questions/31721140/activate-task-view-programmatically-windows-10)
 
 [VBS for opening the Windows 10 task view](https://stackoverflow.com/questions/34956274/vbs-for-opening-the-windows-10-task-view)
+
+## How it works?
+
+```py
+import win32com.client
+objShell = win32com.client.Dispatch("Shell.Application")
+objShell.WindowSwitcher()
+```
