@@ -3,7 +3,7 @@ import sys
 import subprocess
 import ctypes
 
-title = 'f-win-alt-tab by Burgil - 2025'
+title = 'f-win-alt-tab - 2025'
 
 os.system('title ' + title)
 os.system('color a')
