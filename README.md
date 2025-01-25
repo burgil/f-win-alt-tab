@@ -10,6 +10,8 @@ A lightweight utility that enhances the ALT+TAB experience for multi-monitor set
 - No additional UI elements
 - Automatically disables the native Windows Alt+Tab menu
 
+TODO: Create a software with a tray icon
+
 ## Prerequisites
 
 - Python 3.6 or higher
@@ -24,23 +26,27 @@ A lightweight utility that enhances the ALT+TAB experience for multi-monitor set
 pip install keyboard pywin32
 ```
 
-## How to use?
-
-A) Search for Advanced System Settings
-
-![guide1](guide1.png)
-
-B) Uncheck "Animate controls and elements inside windows" from the "Performance Options" dialog to make the `WIN+Tab` experience faster.
-
-![guide2](guide2.png)
-
-C) Run the script and keep it active
+3. Run the script and keep it active
 
 ```bash
 python f-win-alt-tab.py
 ```
 
-TODO: Create a software with a tray icon
+## Making it faster
+
+Search for Advanced System Settings and Uncheck "Animate controls and elements inside windows" from the "Performance Options" dialog to make the `WIN+Tab` experience faster.
+
+![guide1](guidea1.png)
+
+![guide2](guidea2.png)
+
+## Remove task view windows 10 remove history
+
+Open `Settings->Privacy` and under `Activity history` uncheck `Store my activity history on this device` and turn off any microsoft account there
+
+![guide1](guideb1.png)
+
+![guide2](guideb2.png)
 
 ## Related Issues
 
