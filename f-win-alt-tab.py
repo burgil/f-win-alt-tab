@@ -89,7 +89,6 @@ def on_tab(event):
 # Register hooks
 keyboard.hook_key('alt', on_alt, suppress=True)
 keyboard.hook_key('tab', on_tab, suppress=True)
-keyboard.block_key('windows')  # Block Windows key to prevent interference
 
 debug_print("F-WIN-ALT-TAB is now running...")
 debug_print("Press ALT+TAB to switch between windows on current monitor")
