@@ -20,8 +20,8 @@ VK_RIGHT = 0x27
 
 # Add this new function
 def send_right_key():
+    # Remove the delay and send key events faster
     ctypes.windll.user32.keybd_event(VK_RIGHT, 0, KEYEVENTF_EXTENDEDKEY, 0)
-    time.sleep(0.05)
     ctypes.windll.user32.keybd_event(VK_RIGHT, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0)
 
 def is_win_tab_open():
@@ -69,28 +69,27 @@ def on_alt(event):
 
 def on_tab(event):
     global alt_pressed
-    current_time = time.time()
     if event.event_type == keyboard.KEY_DOWN and alt_pressed:
         debug_print("ALT+TAB detected!")
+        # Suppress the native Alt+Tab immediately
+        keyboard.block_key('tab')
         if not is_win_tab_open() and not is_alt_tab_open():
             objShell.WindowSwitcher()
             debug_print("Opened the Window Switcher!")
         else:
             send_right_key()
             debug_print("Moving selection right")
+        # Unblock the tab key after we're done
+        keyboard.unblock_key('tab')
+        return False
     if is_win_tab_open():
-        if event.event_type == keyboard.KEY_DOWN:
-            debug_print("Blocked TAB KEY_DOWN press")
-        elif event.event_type == keyboard.KEY_UP:
-            debug_print("Blocked TAB KEY_UP press")
-        else:
-            print("IMPOSSIBLE Blocked TAB")
         return False
     return True
 
 # Register hooks
 keyboard.hook_key('alt', on_alt, suppress=True)
 keyboard.hook_key('tab', on_tab, suppress=True)
+keyboard.block_key('windows')  # Block Windows key to prevent interference
 
 debug_print("F-WIN-ALT-TAB is now running...")
 debug_print("Press ALT+TAB to switch between windows on current monitor")
