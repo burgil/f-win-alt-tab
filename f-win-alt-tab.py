@@ -3,6 +3,7 @@ import time
 import ctypes
 import sys
 import win32com.client
+from ctypes import wintypes
 
 DEBUG = True
 def debug_print(*args):
@@ -11,6 +12,17 @@ def debug_print(*args):
 
 objShell = win32com.client.Dispatch("Shell.Application")
 alt_pressed = False
+
+# Add these constants at the top with other imports
+KEYEVENTF_EXTENDEDKEY = 0x0001
+KEYEVENTF_KEYUP = 0x0002
+VK_RIGHT = 0x27
+
+# Add this new function
+def send_right_key():
+    ctypes.windll.user32.keybd_event(VK_RIGHT, 0, KEYEVENTF_EXTENDEDKEY, 0)
+    time.sleep(0.05)
+    ctypes.windll.user32.keybd_event(VK_RIGHT, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0)
 
 def is_win_tab_open():
     """Check if the Windows Task View window is currently open by checking foreground window"""
@@ -47,7 +59,6 @@ def on_alt(event):
         debug_print("ALT pressed")
     elif event.event_type == keyboard.KEY_UP:
         alt_pressed = False
-        time.sleep(0.1)
         if is_win_tab_open():
             debug_print("ALT released while SWITCHER Open")
             keyboard.press_and_release('enter')
@@ -65,7 +76,7 @@ def on_tab(event):
             objShell.WindowSwitcher()
             debug_print("Opened the Window Switcher!")
         else:
-            keyboard.press_and_release('right')
+            send_right_key()
             debug_print("Moving selection right")
     if is_win_tab_open():
         if event.event_type == keyboard.KEY_DOWN:
